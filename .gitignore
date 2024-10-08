@@ -1,0 +1,19 @@
+# Ignore target directory where Rust builds artifacts
+/target/
+
+# Ignore build artifacts for Rust and Cargo
+**/*.rs.bk
+Cargo.lock
+*.log
+
+# Ignore Python virtual environment
+/venv/
+/env/
+*.pyc
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+
+config.yaml

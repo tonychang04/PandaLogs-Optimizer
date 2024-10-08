@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  redpanda:
+    image: docker.vectorized.io/vectorized/redpanda:v23.1.9
+    container_name: redpanda
+    command:
+      - redpanda
+      - start
+      - --check=false 
+
+    ports:
+      - "9092:9092"  # Kafka API
+      - "9644:9644"  # Admin API
+    volumes:
+      - redpanda-data:/var/lib/redpanda/data
+    environment:
+      - REDPANDA_AUTO_CREATE_TOPICS=true
+
+
+
+  redpanda-console:
+    image: docker.redpanda.com/vectorized/console:latest
+    container_name: redpanda-console
+    ports:
+      - "8080:8080"  # Redpanda Console UI
+    environment:
+      KAFKA_BROKER: "172.24.0.2:9092"
+
+    depends_on:
+      - redpanda
+
+
+volumes:
+  redpanda-data:
